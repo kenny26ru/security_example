@@ -13,8 +13,8 @@
         <label for="age">Age:</label><br>
         <input type="text" id="age" th:field="*{password}">
         <select multiple>
-            <option th:field="*{roles}" th:value="${roles.get(0)}">ROLE_ADMIN</option>
-            <option th:field="*{roles}" th:value="${roles.get(1)}">ROLE_USER</option>
+            <option th:field="*{roles}" th:value="${'ROLE_ADMIN'}">ROLE_ADMIN</option>
+            <option th:field="*{roles}" th:value="${'ROLE_USER'}">ROLE_USER</option>
         </select>
         <input type="submit" value="Edit user">
     </form>

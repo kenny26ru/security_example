@@ -11,8 +11,10 @@ import web.model.RoleOfUser;
 import web.model.User;
 import web.service.UserService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -36,7 +38,7 @@ public class AdminController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addPage(ModelAndView modelAndView) {
         User user = new User();
-        List<RoleOfUser> listRols = Arrays.asList(RoleOfUser.values());
+        Set<Role> listRols = userService.allRoles();
         modelAndView.addObject("roles", listRols);
         modelAndView.setViewName("addPage");
         modelAndView.addObject("user", user);
@@ -44,7 +46,7 @@ public class AdminController {
     }
 
     @PostMapping("/add")
-    public String addUser(@ModelAttribute User user, @ModelAttribute Role role) {
+    public String addUser(@ModelAttribute User user) {
         userService.add(user);
         return "redirect:/admin";
     }
@@ -52,8 +54,11 @@ public class AdminController {
     @GetMapping(value = "/edit/{id}")
     public ModelAndView editPage(@PathVariable("id") Long id, ModelAndView modelAndView) {
         User user = userService.getUserById(id);
-        List<RoleOfUser> listRols = Arrays.asList(RoleOfUser.values());
-        modelAndView.addObject("roles", listRols);
+//        List<RoleOfUser> listRols = Arrays.asList(RoleOfUser.values());
+//        modelAndView.addObject("roles", listRols);
+
+//        modelAndView.addObject("roles", roles);
+//        modelAndView.addObject("role", role);
         modelAndView.addObject("user", user);
         modelAndView.setViewName("editPage");
         return modelAndView;
@@ -61,6 +66,7 @@ public class AdminController {
 
     @PostMapping(value = "/edit")
     public ModelAndView editUser(@ModelAttribute("user") User user, ModelAndView modelAndView) {
+
         userService.edit(user);
         modelAndView.setViewName("redirect:/admin");// redirect перенаправляет на адресс "/"
         return modelAndView;

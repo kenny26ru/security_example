@@ -9,11 +9,14 @@
     <form action="#" th:action="@{/add}" th:object="${user}" method="post">
         <label for="fname">First name:</label><br>
         <input type="text" id="fname" th:field="*{name}"><br>
-        <label for="age">Age:</label><br>
-        <input type="text" id="age" th:field="*{password}">
-        <select multiple>
-            <option th:field="*{roles}" th:value="${roles.get(0)}">ROLE_ADMIN</option>
-            <option th:field="*{roles}" th:value="${roles.get(1)}">ROLE_USER</option>
+        <label for="pass">Password:</label><br>
+        <input type="text" id="pass" th:field="*{password}">
+        <select multiple th:field="*{roles}">
+            <option value="default">All Roles</option>
+            <option th:each="role : ${roles}"
+                    th:value="${role}"
+                    th:field="*{roles}"
+                    th:text="${roles}"></option>
         </select>
         <input type="submit" value="Add user">
     </form>

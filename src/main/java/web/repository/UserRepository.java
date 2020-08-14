@@ -1,8 +1,10 @@
 package web.repository;
 
+import web.model.Role;
 import web.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 
 public interface UserRepository {
@@ -17,4 +19,8 @@ public interface UserRepository {
     List<User> allUsers();
 
     User getUserByName(String userName);
+
+    Role getRoleByName(String name);
+
+    Set<Role> allRoles();
 }

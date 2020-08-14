@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -53,12 +54,15 @@ public class UserRepositoryImpl implements UserRepository {
         return query.setParameter("userName", userName).getSingleResult();
     }
 
+    @Override
+    public Role getRoleByName(String name) {
+        Role role = em.find(Role.class, name);
+        return role;
+    }
 
-//    @Override
-//    public User getUserByName(String name) {
-//        if (!userMap.containsKey(name)) {
-//            return null;
-//        }
-//        return userMap.get(name);
-//    }
+    @Override
+    public Set<Role> allRoles() {
+        Set<Role> allRoles = (Set<Role>) em.createQuery("select r from Role r").getResultList();
+        return allRoles;
+    }
 }

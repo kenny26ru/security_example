@@ -3,10 +3,12 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import web.model.Role;
 import web.model.User;
 import web.repository.UserRepository;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -43,9 +45,21 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public Role getRoleByName(String name) {
+        Role role = userRepository.getRoleByName(name);
+        return role;
+    }
+
+    @Override
     @Transactional
     public List<User> allUsers() {
         List<User> users = userRepository.allUsers();
         return users;
+    }
+
+    @Override
+    public Set<Role> allRoles() {
+        Set<Role> allRoles = userRepository.allRoles();
+        return allRoles;
     }
 }
